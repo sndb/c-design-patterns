@@ -4,7 +4,7 @@
 typedef bool filter_fn(void *, int);
 
 struct is_divisible {
-	bool (*fn)(void *, int);
+	filter_fn *fn;
 	int divisor;
 };
 
@@ -15,8 +15,8 @@ is_divisible(void *closure, int n) {
 }
 
 bool
-is_prime(void *ctx, int n) {
-	(void)ctx;
+is_prime(void *closure, int n) {
+	(void)closure;
 	if (n <= 1)
 		return false;
 	for (int i = 2; i < n; i++)
